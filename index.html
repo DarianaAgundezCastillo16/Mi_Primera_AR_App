@@ -6,11 +6,25 @@
   <title>Mi Primera App AR</title>
   <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script>
+    AFRAME.registerComponent('color-cycle', {
+      tick: function () {
+        const t = Date.now() * 0.001;
+        const r = Math.floor((Math.sin(t) * 0.5 + 0.5) * 255);
+        const g = Math.floor((Math.sin(t + 2) * 0.5 + 0.5) * 255);
+        const b = Math.floor((Math.sin(t + 4) * 0.5 + 0.5) * 255);
+        this.el.setAttribute('color', `rgb(${r},${g},${b})`);
+      }
+    });
+  </script>
 </head>
 <body style="margin: 0px; overflow: hidden;">
   <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
     <a-marker preset="hiro">
-      <a-box position="0 0.5 0" color="#C70A0A" material="opacity: 0.8"
+      <a-box 
+        position="0 0.5 0"
+        material="opacity: 0.9"
+        color-cycle
         animation="property: rotation; to: 0 360 0; loop: true; dur: 3000">
       </a-box>
     </a-marker>
